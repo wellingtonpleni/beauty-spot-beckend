@@ -5,4 +5,7 @@
 ```
 yarn add mongodb
 yarn add dotenv
+yarn add eslint --dev
+yarn run eslint --init
+yarn add nodemon --dev
 ```
