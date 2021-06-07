@@ -3,6 +3,6 @@
 
 ## Packages
 ```
-yarn install mongodb
-yarn install dotenv
+yarn add mongodb
+yarn add dotenv
 ```
