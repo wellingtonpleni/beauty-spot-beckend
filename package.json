@@ -1,0 +1,23 @@
+{
+  "name": "mongodbapi",
+  "version": "1.0.0",
+  "description": "NodeJS API integrated with MongoDB (without Mongoose) ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricardoleme/mongodbApi.git"
+  },
+  "keywords": [
+    "mongodb",
+    "NodeJS"
+  ],
+  "author": "Prof. Ricardo Leme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ricardoleme/mongodbApi/issues"
+  },
+  "homepage": "https://github.com/ricardoleme/mongodbApi#readme"
+}
