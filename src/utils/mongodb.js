@@ -1,23 +1,27 @@
-import { MongoClient } from 'mongodb'
+import mongodb from 'mongodb'
+const { MongoClient } = mongodb
+
+import { config } from 'dotenv'
+config() // carrega as variáveis definidas no .env
 
 const { MONGODB_URI, MONGODB_DB } = process.env
 
 if (!MONGODB_URI) {
   throw new Error(
-    'Please define the MONGODB_URI environment variable inside .env.local'
+    'Por favor, defina a variável de ambiente MONGODB_URI dentro do arquivo .env'
   )
 }
 
 if (!MONGODB_DB) {
   throw new Error(
-    'Please define the MONGODB_DB environment variable inside .env.local'
+    'Por favor, defina a variável de ambiente MONGODB_DB dentro do arquivo .env'
   )
 }
 
 /**
- * Global is used here to maintain a cached connection across hot reloads
- * in development. This prevents connections growing exponentially
- * during API Route usage.
+ * O objeto Global é usado aqui para manter uma conexão em cache entre hot reloads em desenvolvimento. 
+ * Isso evita que as conexões cresçam exponencialmente durante o uso das rotas da API. 
+ * Saiba mais: https://nodejs.org/api/globals.html#globals_global_objects
  */
 let cached = global.mongo
 
