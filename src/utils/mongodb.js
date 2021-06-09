@@ -45,6 +45,12 @@ export async function connectToDatabase() {
         client,
         db: client.db(MONGODB_DB),
       }
+    }).catch((error) => {
+      throw new Error(
+        `❌ Não foi possível conectar no MongoDB: ${error}`
+      )
+    }).finally(() => {
+      console.log('🍃 Conectado ao MongoDB')
     })
   }
   cached.conn = await cached.promise
