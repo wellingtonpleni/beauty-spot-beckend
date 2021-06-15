@@ -1,0 +1,58 @@
+//Teste de Requisições REST - Estudantes
+@baseURL = http://localhost:4000
+@id = 60c8a682d29140013e110276
+###
+// GET - Lista todos os estudantes
+GET {{baseURL}}/estudantes
+Content-Type: application/json
+
+###
+// GET - Lista apenas um estudante pelo id
+GET {{baseURL}}/estudantes/{{id}}
+Content-Type: application/json
+
+
+
+###
+// POST - Inclui um novo estudante
+POST {{baseURL}}/estudantes
+Content-Type: application/json
+
+{
+   "nome":"Maria Ivone Lima 5",
+   "anoGraduação":2065,
+   "tipo":"Estudante",
+   "notaMédia":4.73,
+   "endereço": {
+      "logradouro":"Av.Tiradentes, 1211",
+      "municipio":"Itu"
+      }
+}
+
+### 
+// DELETE - Apaga uma categoria através do id informado
+DELETE {{baseURL}}/estudantes/{{id}}
+Content-Type: application/json
+
+###
+// PUT - Altera uma categoria pelo ID
+PUT {{baseURL}}/estudantes
+Content-Type: application/json
+
+{
+    "_id": "6090376b1f4ecc016577707e", 
+    "nome": "Cantinas Italianas",
+    "status": "ativo"
+}
+
+
+###
+// PUT - Altera uma categoria pelo ID - INVÁLIDO
+PUT {{baseURL}}/estudantes
+Content-Type: application/json
+
+{
+    "_id": "9999", 
+    "nome": "Cantinas Italianas 2",
+    "status": "ativo"
+}

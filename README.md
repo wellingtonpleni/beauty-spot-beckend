@@ -11,7 +11,7 @@ Add { "type": "module" } in the nearest package.json.
 ## Packages
 ```
 yarn add express
-yarn add mongodb
+yarn add mongodb@4.0.0-beta.5
 yarn add dotenv
 yarn add cors
 yarn add eslint --dev

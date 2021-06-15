@@ -1,0 +1,67 @@
+//Selecione o database
+use('labbd')
+
+// Remove a collection
+db.estudantes.drop() 
+
+//Cria a collection com a validação do schema
+db.createCollection('estudantes', {
+    validator: {
+       $jsonSchema: {
+          bsonType: 'object',
+          required: [ 'nome', 'anoGraduação', 'tipo', 'endereço' ],
+          properties: {
+             nome: {
+                bsonType: 'string',
+                description: 'Nome é obrigatório'
+             },
+             anoGraduação: {
+                bsonType: 'int',
+                minimum: 2021,
+                maximum: 2050,
+                description: 'Ano deve ser um inteiro entre [ 2021 a 2050 ]'
+             },
+             tipo: {
+                enum: [ 'Admin', 'Estudante', 'Professor' ],
+                description: 'O tipo informado do estudante é inválido'
+             },
+             notaMédia: {
+                bsonType: [ 'double' ],
+                description: 'A nota média deve ser um valor numérico'
+             },
+             endereço: {
+                bsonType: 'object',
+                required: [ 'municipio' ],
+                properties: {
+                   logradouro: {
+                      bsonType: 'string',
+                      description: 'O logradouro deve ser um campo texto'
+                   },
+                   municipio: {
+                      bsonType: 'string',
+                      description: 'O munícipio é obrigatório'
+                   }
+                }
+             }
+          }
+       }
+    },
+    validationLevel: 'strict', //moderate or off
+    validationAction: 'error' //warn
+ })
+
+//Insere um novo registro
+db.estudantes.insertOne({
+   'nome':'José Alberto Gus',
+   'anoGraduação':2024,
+   'tipo':'Estudante',
+   'notaMédia':4.73,
+   'endereço': {
+      'logradouro':'Av.Tiradentes, 1211',
+      'municipio':'Itu'
+      }
+})
+
+//Lista um registro pelo Id
+db.estudantes.find({"_id": {$eq: ObjectId("60c8a682d29140013e110276")}})
+

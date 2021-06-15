@@ -4,12 +4,14 @@ const app = express();
 const port = 4000
 
 app.use(cors()) //Habilita o CORS-Cross-origin resource sharing
+app.use(express.urlencoded({extended: true}));
+app.use(express.json()) // Parse JSON payloads
 app.use('/favicon.ico', express.static('public/favicon.ico')) //Configura o favicon
 app.disable('x-powered-by') //Removendo o x-powered-by por segurança
 
-import rotasStudent from './routes/students.js'
-//Rotas das Categorias
-app.use("/students", rotasStudent)
+import rotasEstudantes from './routes/estudantes.js'
+//Rotas dos Estudantes
+app.use("/estudantes", rotasEstudantes)
 
 //Definimos a nossa rota default
 app.get('/', (req, res) => {

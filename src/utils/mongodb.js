@@ -1,5 +1,6 @@
 import mongodb from 'mongodb'
 const { MongoClient } = mongodb
+//const { ObjectId } = mongodb.ObjectID
 
 import { config } from 'dotenv'
 config() // carrega as variáveis definidas no .env
@@ -56,3 +57,5 @@ export async function connectToDatabase() {
   cached.conn = await cached.promise
   return cached.conn
 }
+
+export { MONGODB_DB, MONGODB_URI }
