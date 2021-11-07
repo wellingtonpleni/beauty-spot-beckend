@@ -1,6 +1,5 @@
 import mongodb from 'mongodb'
-const { MongoClient } = mongodb
-//const { ObjectId } = mongodb.ObjectID
+const { MongoClient, ObjectId } = mongodb
 
 import { config } from 'dotenv'
 config() // carrega as variáveis definidas no .env
@@ -45,6 +44,7 @@ export async function connectToDatabase() {
       return {
         client,
         db: client.db(MONGODB_DB),
+        ObjectId: ObjectId
       }
     }).catch((error) => {
       throw new Error(

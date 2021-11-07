@@ -11,13 +11,11 @@ Add { "type": "module" } in the nearest package.json.
 ## Packages
 ```
 yarn add express
-yarn add mongodb@4.0.0-beta.5
+yarn add mongodb
 yarn add dotenv
 yarn add cors
-yarn add eslint --dev
-yarn run eslint --init
 yarn add nodemon --dev
 ```
 
-
+## Inspiration
 https://github.com/mav1283/mernstacktodo/blob/master/server.js

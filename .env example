@@ -1,0 +1,8 @@
+MONGODB_URI=SuaStringConexao
+MONGODB_DB=SeuBD
+
+--APAGAR DAQUI PARA BAIXO...
+/* Exemplo:
+MONGODB_URI=mongodb+srv://USUARIO:Senha@cluster0.NOMECLUSTER.mongodb.net
+MONGODB_DB=LabBD
+*/

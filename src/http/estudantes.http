@@ -1,6 +1,6 @@
 //Teste de Requisições REST - Estudantes
 @baseURL = http://localhost:4000
-@id = 60c8a682d29140013e110276
+@id = 6187d99da683f53cf61a74b7
 ###
 // GET - Lista todos os estudantes
 GET {{baseURL}}/estudantes
@@ -11,16 +11,14 @@ Content-Type: application/json
 GET {{baseURL}}/estudantes/{{id}}
 Content-Type: application/json
 
-
-
 ###
 // POST - Inclui um novo estudante
 POST {{baseURL}}/estudantes
 Content-Type: application/json
 
 {
-   "nome":"Maria Ivone Lima 5",
-   "anoGraduação":2065,
+   "nome":"Maria Ivone Lima 6",
+   "anoGraduação":2048,
    "tipo":"Estudante",
    "notaMédia":4.73,
    "endereço": {
@@ -30,29 +28,25 @@ Content-Type: application/json
 }
 
 ### 
-// DELETE - Apaga uma categoria através do id informado
+// DELETE - Apaga um estudante através do id informado
 DELETE {{baseURL}}/estudantes/{{id}}
 Content-Type: application/json
 
 ###
-// PUT - Altera uma categoria pelo ID
+// PUT - Altera um estudante pelo ID
 PUT {{baseURL}}/estudantes
 Content-Type: application/json
 
 {
-    "_id": "6090376b1f4ecc016577707e", 
-    "nome": "Cantinas Italianas",
-    "status": "ativo"
+    "_id": "6187d99da683f53cf61a74b7", 
+    "nome":"Alterado Maria Ivone Lima 6",
+   "anoGraduação":2048,
+   "tipo":"Estudante",
+   "notaMédia":4.73,
+   "endereço": {
+      "logradouro":"altera Av.Tiradentes, 1211",
+      "municipio":" altera Itu"
+      }
 }
 
 
-###
-// PUT - Altera uma categoria pelo ID - INVÁLIDO
-PUT {{baseURL}}/estudantes
-Content-Type: application/json
-
-{
-    "_id": "9999", 
-    "nome": "Cantinas Italianas 2",
-    "status": "ativo"
-}

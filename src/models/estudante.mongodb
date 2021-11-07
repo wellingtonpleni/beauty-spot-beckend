@@ -1,5 +1,5 @@
 //Selecione o database
-use('labbd')
+use('LabBD')
 
 // Remove a collection
 db.estudantes.drop() 
