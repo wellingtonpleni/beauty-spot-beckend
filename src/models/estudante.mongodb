@@ -52,8 +52,8 @@ db.createCollection('estudantes', {
 
 //Insere um novo registro
 db.estudantes.insertOne({
-   'nome':'José Alberto Gus',
-   'anoGraduação':2024,
+   'nome':'Maria José Alberto Gus',
+   'anoGraduação':2050,
    'tipo':'Estudante',
    'notaMédia':4.73,
    'endereço': {
@@ -62,6 +62,14 @@ db.estudantes.insertOne({
       }
 })
 
+//Lista todos os registros
+db.estudantes.find()
 //Lista um registro pelo Id
-db.estudantes.find({"_id": {$eq: ObjectId("60c8a682d29140013e110276")}})
+db.estudantes.find({"_id": {$eq: ObjectId("61891d38a64a453659f55c56")}})
+
+/*
+Saiba mais em: https://docs.mongodb.com/manual/core/schema-validation/
+*/
+
+db.estudantes.find({nome: /alberto/i})
 
