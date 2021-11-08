@@ -53,16 +53,15 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     res.status(500).json({ "error": err.message })
   }
-})
+}) 
 
 /**********************************************
  * GET /estudantes/nome/:nome
  * Lista o estudante através de parte do seu nome
  **********************************************/
 router.get("/nome/:nome", async (req, res) => {
-
   try {
-    db.collection(nomeCollection).find({ nome: req.params.nome }).toArray((err, docs) => {
+    db.collection(nomeCollection).find({ nome: {$regex: req.params.nome, $options: "i"} }).toArray((err, docs) => {
       if (err) {
         res.status(400).json(err) //bad request
       } else {
