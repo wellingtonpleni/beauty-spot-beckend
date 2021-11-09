@@ -20,10 +20,10 @@ const validaUsuario = [
   check('email')
     .not().isEmpty().trim().withMessage('É obrigatório informar o email do usuário')
     .isEmail().withMessage('O email do usuário deve ser válido')
-    .custom(value => {
+    .custom((value, {req}) => {
       return db.collection(nomeCollection).find({ email: { $eq: value } }).toArray()
         .then((email) => {
-          if (email.length) {
+          if (email.length && !req.params.id) {
             return Promise.reject(`O email ${value} já está informado em outro usuário`)
           }
         })
@@ -132,10 +132,10 @@ router.post('/', validaUsuario, async (req, res) => {
 })
 
 /**********************************************
- * PUT /estudantes/
+ * PUT /estudantes/:id
  * Alterar um estudante pelo ID
  **********************************************/
-router.put('/', validaUsuario, async (req, res) => {
+router.put('/:id', validaUsuario, async (req, res) => {
   const schemaErrors = validationResult(req)
   if (!schemaErrors.isEmpty()) {
     return res.status(403).json(({
@@ -144,20 +144,9 @@ router.put('/', validaUsuario, async (req, res) => {
   } else {
     const estudanteInput = req.body
     await db.collection(nomeCollection)
-      .updateOne({ "_id": { $eq: ObjectId(req.body._id) } }, {
-        $set:
-        {
-          nome: estudanteInput.nome,
-          anoGraduação: estudanteInput.anoGraduação,
-          tipo: estudanteInput.tipo,
-          notaMédia: estudanteInput.notaMédia,
-          endereço: {
-            logradouro: estudanteInput.endereço.logradouro,
-            municipio: estudanteInput.endereço.municipio
-          }
-        }
-      },
-        { returnNewDocument: true })
+      .updateOne({ "_id": { $eq: ObjectId(req.params.id) } }, 
+      {$set: estudanteInput}
+      )
       .then(result => res.status(202).send(result))
       .catch(err => res.status(400).json(err))
   }

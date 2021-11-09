@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
    "nome": "Walter Hugo Cavana",
-   "email": "waltercavana@uol.com",
+   "email": "walteracavana22@uol.com",
    "senha": "Walter2@",
    "ativo": true,
    "tipo": "Profissional",
@@ -27,18 +27,17 @@ Content-Type: application/json
 
 ### 
 // DELETE - Apaga um estudante através do id informado
-DELETE {{baseURL}}/usuários/{{id}}
+DELETE {{baseURL}}/usuarios/{{id}}
 Content-Type: application/json
 
 ###
 // PUT - Altera um estudante pelo ID
-PUT {{baseURL}}/usuarios/
+PUT {{baseURL}}/usuarios/{{id}}
 Content-Type: application/json
 
 {
-    "_id": "618a8a89329f454a023462b0",
-    "nome": "Walter Hugo Cavana Jr",
-    "email": "waltercavana@uol.com",
+    "nome": "Walter Hugo Cavana Jr alves de",
+    "email": "wadddd@uol.com",
     "senha": "Walter2@",
     "ativo": true,
     "tipo": "Profissional",
