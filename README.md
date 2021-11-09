@@ -15,6 +15,7 @@ yarn add mongodb
 yarn add dotenv
 yarn add cors
 yarn add express-validator
+yarn add multer
 yarn add nodemon --dev
 ```
 
