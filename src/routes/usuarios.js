@@ -243,17 +243,17 @@ router.post('/login', validaLogin,
           ]
         })
 
-      const payload = {usuario: {id: usuario[0]._id}}
+
       
       jwt.sign(
-        payload,
+        {usuario: {id: usuario[0]._id}},
         process.env.SECRET_KEY,
         {
           expiresIn: process.env.EXPIRES_IN
         },
         (err, token) => {
           if (err) throw err
-          setTokenCookie(res, token)
+          //setTokenCookie(res, token)
           res.status(200).json({
             access_token: token
           })
@@ -282,7 +282,7 @@ router.post('/login', validaLogin,
 router.get('/token', auth, async (req, res) => {
     // O token enviado junto com a requisição será validado através do auth
     try {
-      //A partir do usuário recebido no Token, iremos dar um 'Refresh' no Token, gerando novamente
+      //A partir do usuário recebido no Token, iremos dar um 'Refresh' no Token, gerando-o novamente
       let access_token = jwt.sign(
         {usuario: {id: req.usuario.id}},
         process.env.SECRET_KEY,
@@ -302,7 +302,7 @@ router.get('/token', auth, async (req, res) => {
       })
     }
 })
-
+/*
 function setTokenCookie(res, token)
 {
     // create http only cookie with refresh token that expires in 1 days
@@ -312,5 +312,5 @@ function setTokenCookie(res, token)
     }
     res.cookie('refreshToken', token, cookieOptions);
 }
-
+*/
 export default router
