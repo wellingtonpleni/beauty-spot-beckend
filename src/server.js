@@ -20,6 +20,7 @@ app.get('/api', (req, res) => {
       message: 'API Dog Walker - 100% funcional!🐕👏',
       version: '1.0.1'
   })
+  
 })
 
 //Rotas dos Usuários

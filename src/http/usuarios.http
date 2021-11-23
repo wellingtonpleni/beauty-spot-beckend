@@ -1,6 +1,6 @@
 //Teste de Requisições REST - Usuários
 @baseURL = http://localhost:4000/api
-@id = 618a8a89329f454a023462b0
+@id = 618ac4956ae534cb83972b23
 ###
 // GET - Lista todos os usuários
 GET {{baseURL}}/usuarios
@@ -18,7 +18,7 @@ Content-Type: application/json
 
 {
    "nome": "Walter Hugo Cavana",
-   "email": "walteracavana22@uol.com",
+   "email": "walteracavanahugo2@uol.com",
    "senha": "Walter2@",
    "ativo": true,
    "tipo": "Profissional",
@@ -36,12 +36,30 @@ PUT {{baseURL}}/usuarios/{{id}}
 Content-Type: application/json
 
 {
-    "nome": "Walter Hugo Cavana Jr alves de",
-    "email": "wadddd@uol.com",
+    "nome": "Walter Hugo Cavana Jr alves de Braga Neto oi",
+    "email": "hugolima@uol.com",
     "senha": "Walter2@",
     "ativo": true,
     "tipo": "Profissional",
     "avatar": "https://ui-avatars.com/api/?background=3700B3&color=FFFFFF&name=Walter+Hugo+Cavana"
   }
 
+###
+// POST - Efetuar o Login
+POST {{baseURL}}/usuarios/login
+Content-Type: application/json
+
+{
+   "email": "walteracavanahugo2@uol.com",
+   "senha": "Walter2@"
+
+}
+
+###
+// POST - Validar o token
+POST {{baseURL}}/usuarios/token
+Content-Type: application/json
+{
+"access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiNjE4YWZhNDU0YjE4YmFkYTY2NmE4NDE0Iiwibm9tZSI6IldhbHRlciBIdWdvIENhdmFuYSIsInRpcG8iOiJQcm9maXNzaW9uYWwifSwiaWF0IjoxNjM2NTA0NzExLCJleHAiOjE2MzY1NDA3MTF9.DsjFCdhOLxE3J5fhVkg4DCE3vKdeBu65KMfr4IVqAxI"					
+}
 
