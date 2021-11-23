@@ -35,7 +35,7 @@ app.use(function (req, res) {
     errors: [
       {
         value: `${req.originalUrl}`,
-        msg: `A rota ${req.originalUrl} não existe neste API 🚫`,
+        msg: `A rota ${req.originalUrl} não existe nesta API 🚫`,
         param: 'routes'
       }
     ]

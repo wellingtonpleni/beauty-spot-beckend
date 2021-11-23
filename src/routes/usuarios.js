@@ -138,6 +138,10 @@ router.get('/nome/:filtro', async (req, res) => {
  * Inclui um novo estudante
  **********************************************/
 router.post('/', validaUsuario, async (req, res) => {
+  //Atribuindo valores default
+  req.body.tipo ? req.body.tipo : 'Cliente'
+  req.body.ativo = true
+  //Verificando os erros
   const schemaErrors = validationResult(req)
   if (!schemaErrors.isEmpty()) {
     return res.status(403).json(({
@@ -196,7 +200,7 @@ router.delete('/:id', async (req, res) => {
 const validaLogin = [
   check('email')
     .not().isEmpty().trim().withMessage('É obrigatório informar o email do usuário para o login')
-    .isEmail().withMessage('O email para o login deve ser válido'),
+    .isEmail().withMessage('O email para validar o login deve ser válido'),
   check('senha')
     .not().isEmpty().trim().withMessage('É obrigatório informar a senha do usuário para o login')
     .isLength({ min: 6 }).withMessage('A senha deve conter no mínimo 6 caracteres')
@@ -221,7 +225,7 @@ router.post('/login', validaLogin,
           errors: [
             {
               value: `${email}`,
-              msg: 'Não há nenhum usuário com o email informado',
+              msg: 'Não há nenhum usuário cadastrado com o email informado',
               param: 'email'
             }
           ]
