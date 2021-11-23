@@ -42,13 +42,16 @@ const validaUsuario = [
       minNumbers: 1
     }).withMessage('A senha informada não é segura. Ela deve conter ao menos 1 letra maiúscula, 1 número e 1 símbolo '),
   check('ativo')
+    .default(true)
     .not().isString().withMessage('O valor informado para o campo ativo não pode ser um texto')
     .not().isInt().withMessage('O valor informado para o campo ativo não pode ser um número')
     .isBoolean().withMessage('O valor informado para o campo ativo deve ser um booleano (True ou False)'),
   check('tipo')
+    .default('Cliente')
     .not().isEmpty().trim().withMessage('É obrigatório informar o tipo do usuário')
     .isIn(['Admin', 'Cliente', 'Profissional']).withMessage('O tipo informado deve ser Admin, Cliente ou Profissional'),
   check('avatar')
+    .default('https://ui-avatars.com/api/?background=3700B3&color=FFFFFF&name=Dog+Walker')
     .isURL().withMessage('O endereço do avatar deve ser uma URL válida')
 ]
 
@@ -138,9 +141,6 @@ router.get('/nome/:filtro', async (req, res) => {
  * Inclui um novo estudante
  **********************************************/
 router.post('/', validaUsuario, async (req, res) => {
-  //Atribuindo valores default
-  req.body.tipo ? req.body.tipo : 'Cliente'
-  req.body.ativo = true
   //Verificando os erros
   const schemaErrors = validationResult(req)
   if (!schemaErrors.isEmpty()) {

@@ -1,5 +1,5 @@
 //Teste de Requisições REST - Usuários
-@baseURL = http://localhost:4000/api
+@baseURL = https://dogwalkerfatec.herokuapp.com/api
 @id = 618ac4956ae534cb83972b23
 ###
 // GET - Lista todos os usuários
@@ -19,10 +19,7 @@ Content-Type: application/json
 {
    "nome": "Walter Hugo Cavana",
    "email": "walteracavanahugo2@uol.com",
-   "senha": "Walter2@",
-   "ativo": true,
-   "tipo": "Profissional",
-   "avatar": "https://ui-avatars.com/api/?background=5B1333&color=fff&name=Walter+Cavana"
+   "senha": "Walter2@"
 }
 
 ### 
