@@ -17,6 +17,7 @@ yarn add cors
 yarn add express-validator
 yarn add multer
 yarn add nodemon --dev
+yarn add node-fetch
 ```
 
 ## Inspiration

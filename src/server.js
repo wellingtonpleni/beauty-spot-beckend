@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import rotasUsuarios from './routes/usuarios.js'
+import rotasMapQuest from './routes/mapquest.js'
 
 const app = express();
 const port = process.env.PORT || 4000
@@ -25,6 +26,9 @@ app.get('/api', (req, res) => {
 
 //Rotas dos Usuários
 app.use('/api/usuarios', rotasUsuarios)
+
+//Rotas da API
+app.use('/api/mapquest', rotasMapQuest)
 
 /* Rota do upload */
 //app.use('/upload', rotaUpload)

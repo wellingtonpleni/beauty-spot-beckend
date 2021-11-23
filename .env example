@@ -1,10 +1,14 @@
 MONGODB_URI=SuaStringConexao
 MONGODB_DB=SeuBD
 SECRET_KEY=SuaSuperChaveSecreta
-EXPIRES_IN=10h
+EXPIRES_IN=12h
+MAP_QUEST_API_KEY=SuaAPIKey
 
 --APAGAR DAQUI PARA BAIXO...
 /* Exemplo:
 MONGODB_URI=mongodb+srv://USUARIO:Senha@cluster0.NOMECLUSTER.mongodb.net
 MONGODB_DB=LabBD
+
+Obtenha a sua API Key do Map Quest em: (15k/month transactions free)
+https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register
 */
