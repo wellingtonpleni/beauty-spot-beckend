@@ -2,6 +2,7 @@
 import express from 'express'
 import { connectToDatabase } from '../utils/mongodb.js'
 import { check, validationResult } from 'express-validator'
+import auth from '../middleware/auth.js'
 //JWT
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
@@ -81,10 +82,10 @@ router.get('/', async (req, res) => {
 })
 
 /**********************************************
- * GET /api/usuarios/:id
+ * GET /api/usuarios/id/:id
  * Lista o usuário através do id
  **********************************************/
-router.get('/:id', async (req, res) => {
+router.get('/id/:id', async (req, res) => {
   try {
     db.collection(nomeCollection).find({ '_id': { $eq: ObjectId(req.params.id) } }, {
       projection: { senha: false }
@@ -242,13 +243,7 @@ router.post('/login', validaLogin,
           ]
         })
 
-      const payload = {
-        usuario: {
-          id: usuario[0]._id,
-          nome: usuario[0].nome,
-          tipo: usuario[0].tipo
-        }
-      }
+      const payload = {usuario: {id: usuario[0]._id}}
       
       jwt.sign(
         payload,
@@ -284,20 +279,16 @@ router.post('/login', validaLogin,
  * POST /estudantes/token
  * Verifica se o token informado é válido
  **********************************************/
-
-router.post('/token', async (req, res) => {
-  try {
-    // O token é enviado junto com a requisição
-    //const { access_token } = req.body
-    console.log(req.cookies)
-    const access_token = req.cookies.refreshToken;
-    
-    const decoded = jwt.verify(access_token, process.env.SECRET_KEY)
-    const usuarioToken = decoded.usuario
+router.get('/token', auth, async (req, res) => {
+    // O token enviado junto com a requisição será validado através do auth
     try {
+      //A partir do usuário recebido no Token, iremos dar um 'Refresh' no Token, gerando novamente
+      let access_token = jwt.sign(
+        {usuario: {id: req.usuario.id}},
+        process.env.SECRET_KEY,
+        {expiresIn: process.env.EXPIRES_IN})
       res.status(200).json({
-        access_token: access_token,
-        usuario: usuarioToken
+        access_token: access_token
       })
     } catch (err) {
       res.status(500).send({
@@ -310,17 +301,6 @@ router.post('/token', async (req, res) => {
         ]
       })
     }
-  } catch (e) {
-    res.send({
-      errors: [
-        {
-          value: `${e.message}`,
-          msg: 'Erro ao validar os dados do usuário logado',
-          param: 'token'
-        }
-      ]
-    })
-  }
 })
 
 function setTokenCookie(res, token)
