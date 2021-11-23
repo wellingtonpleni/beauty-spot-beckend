@@ -23,6 +23,7 @@ const validaUsuario = [
     .isLength({ max: 100 }).withMessage('O nome do usuário é muito longo. Informe no máximo 100 caracteres'),
   check('email')
     .not().isEmpty().trim().withMessage('É obrigatório informar o email do usuário')
+    .isLowercase().withMessage('O email não pode conter caracteres MAIÚSCULOS')
     .isEmail().withMessage('O email do usuário deve ser válido')
     .custom((value, { req }) => {
       return db.collection(nomeCollection).find({ email: { $eq: value } }).toArray()
