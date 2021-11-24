@@ -13,9 +13,7 @@ const { db, ObjectId } = await connectToDatabase()
  **********************************************/
 const validaPasseador = [
   check('nome', 'Nome do Passeador é obrigatório').not().isEmpty(),
-  check('tipo', 'O tipo de ser Admin, Passeador ou Professor').isIn(['Admin', 'Passeador', 'Professor']),
-  check('anoGraduação', 'O ano de graduação deve estar entre 2021 e 2050').isInt({ min: 2021, max: 2050 }),
-  check('notaMédia', 'A nota média deve ser um número').isNumeric()
+  check('estrelas', 'A nota média deve ser um número').isNumeric()
 ]
 
 
