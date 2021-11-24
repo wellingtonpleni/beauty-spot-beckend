@@ -22,19 +22,18 @@ const validaPasseador = [
  * Lista todos os passeadores
  **********************************************/
 router.get("/", async (req, res) => {
-    const lat = req.query.lat || -23.265700
-    const lng = req.query.lng || -47.299120 //centro de Itu,SP
     try {
         db.collection(nomeCollection).find({
             localizacao:
             {
                 $geoWithin: {
-                    $centerSphere: [[lng, lat], 10 / 6378.1]
+                    $centerSphere: [[req.query.lng, req.query.lat], 10 / 6378.1]
                 } //Retorna apenas os passeadores até 10Km distantes a partir da lat/lng informados
             }
         }).toArray((err, docs) => {
             if (err) {
-                res.status(400).json(err) //bad request
+                res.status(400).json([req.query.lng, req.query.lat])
+                //res.status(400).json(err) //bad request
             } else {
                 res.status(200).json(docs) //retorna os documentos
             }
