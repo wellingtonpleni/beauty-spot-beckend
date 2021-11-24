@@ -139,8 +139,8 @@ router.get('/nome/:filtro', async (req, res) => {
 })
 
 /**********************************************
- * POST /estudantes/
- * Inclui um novo estudante
+ * POST /usuarios/
+ * Inclui um novo usuario
  **********************************************/
 router.post('/', validaUsuario, async (req, res) => {
   //Verificando os erros
@@ -164,8 +164,8 @@ router.post('/', validaUsuario, async (req, res) => {
 })
 
 /**********************************************
- * PUT /estudantes/:id
- * Alterar um estudante pelo ID
+ * PUT /usuarios/:id
+ * Alterar um usuario pelo ID
  **********************************************/
 router.put('/:id', validaUsuario, async (req, res) => {
   const schemaErrors = validationResult(req)
@@ -184,8 +184,8 @@ router.put('/:id', validaUsuario, async (req, res) => {
 })
 
 /**********************************************
- * DELETE /estudantes/:id
- * Apaga um estudante pelo ID
+ * DELETE /usuarios/:id
+ * Apaga um usuario pelo ID
  **********************************************/
 router.delete('/:id', async (req, res) => {
   await db.collection(nomeCollection)
@@ -195,7 +195,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 /**********************************************
- * POST /estudantes/login
+ * POST /usuarios/login
  * Efetua o login do usuário e retorna um token
  **********************************************/
 
@@ -277,7 +277,7 @@ router.post('/login', validaLogin,
 )
 
 /**********************************************
- * POST /estudantes/token
+ * POST /usuarios/token
  * Verifica se o token informado é válido
  **********************************************/
 router.get('/token', auth, async (req, res) => {
