@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
             localizacao:
             {
                 $geoWithin: {
-                    $centerSphere: [[lat, lng], 10 / 6378.1]
+                    $centerSphere: [[lng, lat], 10 / 6378.1]
                 } //Retorna apenas os passeadores até 10Km distantes a partir da lat/lng informados
             }
         }).toArray((err, docs) => {
