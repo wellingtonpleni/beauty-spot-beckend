@@ -22,6 +22,8 @@ const validaPasseador = [
  * Lista todos os passeadores
  **********************************************/
 router.get("/", async (req, res) => {
+    const lat = parseFloat(req.query.lat) || -23.265700
+    const lng = parseFloat(req.query.lng) || -47.299120 //centro de Itu,SP
     try {
         db.collection(nomeCollection).find({
             localizacao:
@@ -32,8 +34,7 @@ router.get("/", async (req, res) => {
             }
         }).toArray((err, docs) => {
             if (err) {
-                res.status(400).json([req.query.lng, req.query.lat])
-                //res.status(400).json(err) //bad request
+                res.status(400).json(err) //bad request
             } else {
                 res.status(200).json(docs) //retorna os documentos
             }
