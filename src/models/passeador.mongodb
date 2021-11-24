@@ -99,6 +99,7 @@ db.passeadores.insertOne({
     "celular": "(11)98267-4139",
     "ativo": true,
     "avatar": "https://source.unsplash.com/featured/?people,woman",
+    "localizacao":{type:"Point",coordinates:[-23.287734,-47.295617]},
     "testemunhos": [
         {
             "usuarioId": "618a803539510367711cdf37",
@@ -127,8 +128,98 @@ db.passeadores.insertOne({
     ]
 })
 
-//Lista todos os registros
-db.passeadores.find()
+db.passeadores.insertOne({
+    "nome": "Antonio Sebastião Jr",
+    "estrelas": 4.8,
+    "celular": "(11)98413-1397",
+    "ativo": true,
+    "avatar": "https://source.unsplash.com/featured/?people,man",
+    "localizacao":{type:"Point",coordinates:[-23.264474,-47.298685]},
+    "testemunhos": [
+        {
+            "usuarioId": "618a803539510367711cdf37",
+            "estrelas": 4,
+            "texto": "Ótimo profissional! A minha Sasha é super bem cuidada por ele. Super recomendo!"
+        },
+        {
+            "usuarioId": "618a803539510367711cdf37",
+            "estrelas": 5,
+            "texto": "Simplesmente o melhor! Nunca me deixou na mão! Super indico se precisar viajar!"
+        }
+    ],
+    "fotos": [
+        { "url": "https://source.unsplash.com/featured/?dog" },
+        { "url": "https://source.unsplash.com/featured/?puppy" }
+    ],
+    "servicos": [
+        {
+            "descricao": "Pet Sitter",
+            "preco": 55.00
+        },
+        {
+            "descricao": "Caminhadas diárias",
+            "preco": 20.00
+        }
+    ]
+})
+
+db.passeadores.insertOne({
+    "nome": "Waltinho Cabreúva",
+    "estrelas": 4.2,
+    "celular": "(11)99142-7778",
+    "ativo": true,
+    "avatar": "https://source.unsplash.com/featured/?people,man",
+    "localizacao":{type:"Point",coordinates:[-23.306929,-47.132217]},
+    "testemunhos": [
+        {
+            "usuarioId": "618a803539510367711cdf37",
+            "estrelas": 4,
+            "texto": "Ótimo profissional! A minha Sasha é super bem cuidada por ele. Super recomendo!"
+        },
+        {
+            "usuarioId": "618a803539510367711cdf37",
+            "estrelas": 5,
+            "texto": "Simplesmente o melhor! Nunca me deixou na mão! Super indico se precisar viajar!"
+        }
+    ],
+    "fotos": [
+        { "url": "https://source.unsplash.com/featured/?dog" },
+        { "url": "https://source.unsplash.com/featured/?puppy" }
+    ],
+    "servicos": [
+        {
+            "descricao": "Pet Sitter",
+            "preco": 55.00
+        },
+        {
+            "descricao": "Caminhadas diárias",
+            "preco": 20.00
+        }
+    ]
+})
+
+//Criando um GeoIndex no campo localizacao
+db.passeadores.createIndex({localizacao: "2dsphere" } )
+
+//Lista todos os registros próximos em um raio de até 10km 
+//O raio equatorial da Terra é de aproximadamente 3963,2 milhas ou 6378,1 quilômetros. 
+db.passeadores.find( { localizacao: { $geoWithin: { $centerSphere: [ [ -23.265700, -47.299120 ] ,
+                                                     10 / 6378.1 ] } } } )
+
+//Lista todos os registros próximos em um raio de até 10km, calculando a distância em Km
+db.passeadores.aggregate([{
+   $geoNear:{
+      near:{
+         type:"Point",
+         coordinates:[-23.265700,-47.299120]},
+         distanceField: "distancia.calculada",
+         maxDistance: (10 * 1609.34), // milhas para metros
+         distanceMultiplier: 0.000621371, // metros para milhas
+         spherical: true
+         }
+         }]).pretty()
+
+
 
 //Lista um registro pelo Id
 db.passeadores.find({ '_id': { $eq: ObjectId('61891d38a64a453659f55c56') } })
