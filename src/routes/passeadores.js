@@ -25,14 +25,22 @@ router.get("/", async (req, res) => {
     const lat = parseFloat(req.query.lat) || -23.265700
     const lng = parseFloat(req.query.lng) || -47.299120 //centro de Itu,SP
     try {
-        db.collection(nomeCollection).find({
-            localizacao:
-            {
-                $geoWithin: {
-                    $centerSphere: [[lat, lng], 10 / 6378.1]
-                } //Retorna apenas os passeadores até 10Km distantes a partir da lat/lng informados
-            }
-        }).toArray((err, docs) => {
+        db.collection(nomeCollection).aggregate([
+            { $geoNear:{
+            near:{
+               type:"Point",
+               coordinates:[lat,lng]},
+               distanceField: "distancia",
+               maxDistance: (20 * 1609.34), // milhas para metros - Máximo 20km
+               distanceMultiplier: 0.000621371, // metros para milhas
+               spherical: true
+               }},
+        { $match : { nome : /a/i } },
+        { $unwind : '$testemunhos' },
+        { $group : { _id : {email: '$email', distancia: '$distancia'}, notaMedia : { $avg : '$testemunhos.estrelas' } } },
+        { $lookup: {from: "passeadores", localField: "_id.email", foreignField: "email", as: "detalhes"}},
+        { $sort : { notaMedia : -1 } }
+      ]).toArray((err, docs) => {
             if (err) {
                 res.status(400).json(err) //bad request
             } else {

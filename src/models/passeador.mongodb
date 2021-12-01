@@ -20,9 +20,9 @@ db.createCollection('passeadores', {
                     maxLength: 100,
                     description: 'Nome deve ser um texto entre 3 a 100 caracteres e é obrigatório'
                 },
-                estrelas: {
-                    bsonType: 'double',
-                    description: 'Nota de 0 a 5'
+                email: {
+                    bsonType: 'string',
+                    description: 'email de Contato'
                 },
                 celular: {
                     bsonType: 'string',
@@ -38,9 +38,9 @@ db.createCollection('passeadores', {
                 },
                 testemunhos: {
                     bsonType: "object",
-                    required: ["usuarioId", "estrelas", "texto"],
+                    required: ["usuario", "estrelas", "texto"],
                     properties: {
-                        usuarioId: {
+                        usuario: {
                             bsonType: "string",
                             description: "O id do usuário que fez a avaliação"
                         },
@@ -89,25 +89,28 @@ db.createCollection('passeadores', {
 
 })
 
-//Criando o índice único
+//Criando um índice único no campo email
 db.passeadores.createIndex({ 'email': 1 }, { unique: true })
+
+//Criando um GeoIndex no campo localizacao
+db.passeadores.createIndex({localizacao: "2dsphere" } )
 
 //Insere um novo registro
 db.passeadores.insertOne({
     "nome": "Aparecida Ribeiro",
-    "estrelas": 4.3,
+    "email": "cida@dog.com.br",
     "celular": "(11)98267-4139",
     "ativo": true,
-    "avatar": "https://source.unsplash.com/featured/?people,woman",
+    "avatar": "https://source.unsplash.com/featured/?woman",
     "localizacao":{type:"Point",coordinates:[-23.287734,-47.295617]},
     "testemunhos": [
         {
-            "usuarioId": "618a803539510367711cdf37",
-            "estrelas": 4,
+            "usuario": "Flávio Passadela",
+            "estrelas": 4.2,
             "texto": "Ótima profissional! A minha Mel é super bem cuidada por ela. Super recomendo!"
         },
         {
-            "usuarioId": "618a803539510367711cdf37",
+            "usuario": "Simone Nunes",
             "estrelas": 5,
             "texto": "Simplesmente a melhor! Nunca me deixou na mão! Super indico se precisar viajar!"
         }
@@ -130,26 +133,26 @@ db.passeadores.insertOne({
 
 db.passeadores.insertOne({
     "nome": "Antonio Sebastião Jr",
-    "estrelas": 4.8,
+    "email":"tiao@nannydog.com.br",
     "celular": "(11)98413-1397",
     "ativo": true,
-    "avatar": "https://source.unsplash.com/featured/?people,man",
+    "avatar": "https://source.unsplash.com/featured/?man",
     "localizacao":{type:"Point",coordinates:[-23.264474,-47.298685]},
     "testemunhos": [
         {
-            "usuarioId": "618a803539510367711cdf37",
-            "estrelas": 4,
-            "texto": "Ótimo profissional! A minha Sasha é super bem cuidada por ele. Super recomendo!"
+            "usuario": "Luiz Thiago Mendonça",
+            "estrelas": 2.5,
+            "texto": "Não gostei. O cara é muito mal humorado"
         },
         {
-            "usuarioId": "618a803539510367711cdf37",
-            "estrelas": 5,
-            "texto": "Simplesmente o melhor! Nunca me deixou na mão! Super indico se precisar viajar!"
+            "usuario": "Priscila Mendes Cipriano",
+            "estrelas": 2.9,
+            "texto": "Ele trata bem os cães, mas pisa na bola com o horário."
         }
     ],
     "fotos": [
         { "url": "https://source.unsplash.com/featured/?dog" },
-        { "url": "https://source.unsplash.com/featured/?puppy" }
+        { "url": "https://source.unsplash.com/featured/?bulldog" }
     ],
     "servicos": [
         {
@@ -165,26 +168,27 @@ db.passeadores.insertOne({
 
 db.passeadores.insertOne({
     "nome": "Waltinho Cabreúva",
+    "email": "waltinho@dogsitter.com.br",
     "estrelas": 4.2,
     "celular": "(11)99142-7778",
     "ativo": true,
-    "avatar": "https://source.unsplash.com/featured/?people,man",
+    "avatar": "https://source.unsplash.com/featured/?man",
     "localizacao":{type:"Point",coordinates:[-23.306929,-47.132217]},
     "testemunhos": [
         {
-            "usuarioId": "618a803539510367711cdf37",
-            "estrelas": 4,
-            "texto": "Ótimo profissional! A minha Sasha é super bem cuidada por ele. Super recomendo!"
+            "usuario": "618a803539510367711cdf37",
+            "estrelas": 4.5,
+            "texto": "Ótimo profissional! Super recomendo!"
         },
         {
-            "usuarioId": "618a803539510367711cdf37",
+            "usuario": "618a803539510367711cdf37",
             "estrelas": 5,
-            "texto": "Simplesmente o melhor! Nunca me deixou na mão! Super indico se precisar viajar!"
+            "texto": "Simplesmente o melhor!❤️"
         }
     ],
     "fotos": [
-        { "url": "https://source.unsplash.com/featured/?dog" },
-        { "url": "https://source.unsplash.com/featured/?puppy" }
+        { "url": "https://source.unsplash.com/featured/?pitbull" },
+        { "url": "https://source.unsplash.com/featured/?dachshund" }
     ],
     "servicos": [
         {
@@ -198,13 +202,19 @@ db.passeadores.insertOne({
     ]
 })
 
-//Criando um GeoIndex no campo localizacao
-db.passeadores.createIndex({localizacao: "2dsphere" } )
 
 //Lista todos os registros próximos em um raio de até 10km 
 //O raio equatorial da Terra é de aproximadamente 3963,2 milhas ou 6378,1 quilômetros. 
 db.passeadores.find( { localizacao: { $geoWithin: { $centerSphere: [ [ -23.265700, -47.299120 ] ,
                                                      10 / 6378.1 ] } } } )
+
+//Retornando a nota média a partir dos testemunhos ordenado pela maior nota
+db.passeadores.aggregate([
+  { $match : { nome : /a/i } },
+  { $unwind : '$testemunhos' },
+  { $group : { _id : '$nome', notaMedia : { $avg : '$testemunhos.estrelas' } } },
+  { $sort : { notaMedia : -1 } }
+]).pretty()
 
 //Lista todos os registros próximos em um raio de até 10km, calculando a distância em Km
 db.passeadores.aggregate([{
@@ -219,7 +229,23 @@ db.passeadores.aggregate([{
          }
          }]).pretty()
 
-
+//Retornando a lista completa dos passeadores, calculando nota média e distância a partir da coordenada passada.
+db.passeadores.aggregate([
+      { $geoNear:{
+      near:{
+         type:"Point",
+         coordinates:[-23.265700,-47.299120]},
+         distanceField: "distancia",
+         maxDistance: (20 * 1609.34), // milhas para metros - Máximo 20km
+         distanceMultiplier: 0.000621371, // metros para milhas
+         spherical: true
+         }},
+  { $match : { nome : /a/i } },
+  { $unwind : '$testemunhos' },
+  { $group : { _id : {email: '$email', distancia: '$distancia'}, notaMedia : { $avg : '$testemunhos.estrelas' } } },
+  { $lookup: {from: "passeadores", localField: "_id.email", foreignField: "email", as: "detalhes"}},
+  { $sort : { "_id.distancia":1, notaMedia : -1 } }
+])
 
 //Lista um registro pelo Id
 db.passeadores.find({ '_id': { $eq: ObjectId('61891d38a64a453659f55c56') } })
