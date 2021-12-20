@@ -10,9 +10,11 @@ const router = express.Router()
 
 /*****************************************************************************
  * GET /api/mapquest/geo-reverse
- * Retorna o endereço/localização a partir da latitude e longitude informados
   ****************************************************************************/
 router.get('/geo-reverse', async (req, res) => {
+       /* #swagger.tags = ['MapQuest']
+      #swagger.description = 'Endpoint que retorna o endereço/localização a partir da latitude e longitude informados' 
+      */
   const {lat, lng} = req.query
   try {
     let url = `http://www.mapquestapi.com/geocoding/v1/reverse?key=${MAP_QUEST_API_KEY}&location=${lat},${lng}`
@@ -35,9 +37,11 @@ router.get('/geo-reverse', async (req, res) => {
 
 /*****************************************************************************
  * GET /api/mapquest/geo
- * Retorna a latitude e longitude a partir de um endereço/localização informado
   ****************************************************************************/
 router.get('/geo', async (req, res) => {
+         /* #swagger.tags = ['MapQuest']
+      #swagger.description = 'Endpoint que retorna a latitude e longitude a partir de um endereço/localização informado' 
+      */
   const {localizacao} = req.query
   try {
     let url = `http://www.mapquestapi.com/geocoding/v1/address?key=${MAP_QUEST_API_KEY}&location=${localizacao},BR`

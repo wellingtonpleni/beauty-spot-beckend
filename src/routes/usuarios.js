@@ -60,21 +60,36 @@ const validaUsuario = [
 
 /**********************************************
  * GET /api/usuarios/
- * Lista todos os usuários do sistema
  **********************************************/
 router.get('/', async (req, res) => {
+  /* 
+   #swagger.tags = ['Usuários']
+   #swagger.description = 'Endpoint para obter todos os usuários do sistema.' 
+   */
   try {
     db.collection(nomeCollection).find({}, {
       projection: { senha: false }
     }).sort({ nome: 1 }).toArray((err, docs) => {
-      if (!err) { res.status(200).json(docs) }
+      if (!err) {
+        /* 
+        #swagger.responses[200] = { 
+     schema: { "$ref": "#/definitions/Usuário" },
+     description: "Listagem dos usuários obtida com sucesso" } 
+     */
+        res.status(200).json(docs)
+      }
     })
   } catch (err) {
+    /* 
+       #swagger.responses[500] = { 
+    schema: { "$ref": "#/definitions/Erro" },
+    description: "Erro ao obter a listagem dos usuários" } 
+    */
     res.status(500).json({
       errors: [
         {
           value: `${err.message}`,
-          msg: 'Erro ao obter os usuários',
+          msg: 'Erro ao obter a listagem dos usuários',
           param: '/'
         }
       ]
@@ -84,16 +99,39 @@ router.get('/', async (req, res) => {
 
 /**********************************************
  * GET /api/usuarios/id/:id
- * Lista o usuário através do id
  **********************************************/
 router.get('/id/:id', async (req, res) => {
+  /* 
+  #swagger.tags = ['Usuários']
+  #swagger.description = 'Endpoint para obter o usuário através do id.' */
+  /*
+  #swagger.parameters['id'] = {
+          in: 'path',
+          description: 'Id do Usuário',
+          type: 'string',
+          required: true,
+          example: '619d068ef455b2ded14c3af4'
+    } 
+  */
   try {
     db.collection(nomeCollection).find({ '_id': { $eq: ObjectId(req.params.id) } }, {
       projection: { senha: false }
     }).limit(1).toArray((err, docs) => {
-      if (!err) { res.status(200).json(docs) }
+      if (!err) {
+        /* 
+        #swagger.responses[200] = { 
+        schema: { "$ref": "#/definitions/Usuário" },
+        description: "Listagem do usuário obtido através do id" } 
+        */
+        res.status(200).json(docs)
+      }
     })
   } catch (err) {
+    /* 
+    #swagger.responses[500] = { 
+    schema: { "$ref": "#/definitions/Erro" },
+    description: "Erro ao obter a listagem dos usuários filtrando pelo id" } 
+    */
     res.status(500).json({
       errors: [
         {
@@ -108,9 +146,20 @@ router.get('/id/:id', async (req, res) => {
 
 /**********************************************************
  * GET /api/usuarios/nome/:filtro
- * Lista o usuário através de parte do seu nome ou e-mail
  **********************************************************/
 router.get('/nome/:filtro', async (req, res) => {
+    /* 
+  #swagger.tags = ['Usuários']
+  #swagger.description = 'Endpoint para obter o usuário através parte do seu nome ou e-mail' */
+  /*
+  #swagger.parameters['filtro'] = {
+          in: 'path',
+          description: 'Texto a ser filtrado',
+          required: true,
+          type: 'string',
+          example: 'Gomes'
+    } 
+  */
   try {
     db.collection(nomeCollection).find({
       $or:
@@ -122,10 +171,20 @@ router.get('/nome/:filtro', async (req, res) => {
       projection: { senha: false }
     }).limit(10).sort({ nome: 1 }).toArray((err, docs) => {
       if (!err) {
+        /* 
+        #swagger.responses[200] = { 
+        schema: { "$ref": "#/definitions/Usuário" },
+        description: "Listagem dos usuários filtrados através do texto" } 
+        */
         res.status(200).json(docs) //retorna o documento
       }
     })
   } catch (err) {
+    /* 
+    #swagger.responses[500] = { 
+    schema: { "$ref": "#/definitions/Erro" },
+    description: "Erro ao obter a listagem dos usuários filtrando pelo nome ou email" } 
+    */
     res.status(500).json({
       errors: [
         {
@@ -140,12 +199,27 @@ router.get('/nome/:filtro', async (req, res) => {
 
 /**********************************************
  * POST /usuarios/
- * Inclui um novo usuario
  **********************************************/
 router.post('/', validaUsuario, async (req, res) => {
+   /* #swagger.tags = ['Usuários']
+      #swagger.description = 'Endpoint para adicionar um novo usuário.' */
+
+   /*   #swagger.parameters['dadosUsuário'] = {
+               in: 'body',
+               description: 'Informações do usuário.',
+               required: true,
+               type: 'object',
+               schema: { $ref: "#/definitions/DadosUsuário" }
+        } 
+        */
   //Verificando os erros
   const schemaErrors = validationResult(req)
   if (!schemaErrors.isEmpty()) {
+     /* 
+    #swagger.responses[403] = { 
+    schema: { "$ref": "#/definitions/Erro" },
+    description: "Erro ao tentar incluir o novo usuário" } 
+    */
     return res.status(403).json(({
       errors: schemaErrors.array() //retorna um Forbidden
     }))
@@ -158,16 +232,28 @@ router.post('/', validaUsuario, async (req, res) => {
     //Iremos salvar o registro
     await db.collection(nomeCollection)
       .insertOne(req.body)
+      // #swagger.responses[201] = { description: 'Usuário registrado com sucesso!' }
       .then(result => res.status(201).send(result)) //retorna o ID do documento inserido
+      // #swagger.responses[400] = { description: 'Bad Request' }     
       .catch(err => res.status(400).json(err))      //caso dê erro, retornamos o bad request
   }
 })
 
 /**********************************************
  * PUT /usuarios/:id
- * Alterar um usuario pelo ID
  **********************************************/
 router.put('/:id', validaUsuario, async (req, res) => {
+     /* #swagger.tags = ['Usuários']
+      #swagger.description = 'Endpoint para alterar um usuário.' */
+
+   /*   #swagger.parameters['dadosUsuário'] = {
+               in: 'body',
+               description: 'Informações do usuário.',
+               required: true,
+               type: 'object',
+               schema: { $ref: "#/definitions/DadosUsuário" }
+        } 
+        */
   const schemaErrors = validationResult(req)
   if (!schemaErrors.isEmpty()) {
     return res.status(403).json(({
@@ -178,16 +264,19 @@ router.put('/:id', validaUsuario, async (req, res) => {
       .updateOne({ '_id': { $eq: ObjectId(req.params.id) } },
         { $set: req.body }
       )
+       // #swagger.responses[202] = { description: 'Usuário alterado com sucesso!' }
       .then(result => res.status(202).send(result))
+      // #swagger.responses[400] = { description: 'Bad Request' } 
       .catch(err => res.status(400).json(err))
   }
 })
 
 /**********************************************
  * DELETE /usuarios/:id
- * Apaga um usuario pelo ID
  **********************************************/
 router.delete('/:id', async (req, res) => {
+     /* #swagger.tags = ['Usuários']
+      #swagger.description = 'Endpoint para apagar um usuário pelo id.' */
   await db.collection(nomeCollection)
     .deleteOne({ '_id': { $eq: ObjectId(req.params.id) } })
     .then(result => res.status(202).send(result))
@@ -209,6 +298,9 @@ const validaLogin = [
 ]
 
 router.post('/login', validaLogin,
+   /* #swagger.tags = ['Usuários']
+      #swagger.description = 'Endpoint para validar o login do usuário e retornar o token JWT.' */
+      
   async (req, res) => {
     const schemaErrors = validationResult(req)
     if (!schemaErrors.isEmpty()) {
@@ -245,9 +337,9 @@ router.post('/login', validaLogin,
         })
 
 
-      
+
       jwt.sign(
-        {usuario: {id: usuario[0]._id}},
+        { usuario: { id: usuario[0]._id } },
         process.env.SECRET_KEY,
         {
           expiresIn: process.env.EXPIRES_IN
@@ -278,40 +370,31 @@ router.post('/login', validaLogin,
 
 /**********************************************
  * POST /usuarios/token
- * Verifica se o token informado é válido
  **********************************************/
 router.get('/token', auth, async (req, res) => {
-    // O token enviado junto com a requisição será validado através do auth
-    try {
-      //A partir do usuário recebido no Token, iremos dar um 'Refresh' no Token, gerando-o novamente
-      let access_token = jwt.sign(
-        {usuario: {id: req.usuario.id}},
-        process.env.SECRET_KEY,
-        {expiresIn: process.env.EXPIRES_IN})
-      res.status(200).json({
-        access_token: access_token
-      })
-    } catch (err) {
-      res.status(500).send({
-        errors: [
-          {
-            value: `${err.message}`,
-            msg: 'Erro ao gerar o token',
-            param: 'token'
-          }
-        ]
-      })
-    }
+     /* #swagger.tags = ['Usuários']
+      #swagger.description = 'Endpoint para verificar se o token passado é válido' */
+  // O token enviado junto com a requisição será validado através do auth
+  try {
+    //A partir do usuário recebido no Token, iremos dar um 'Refresh' no Token, gerando-o novamente
+    let access_token = jwt.sign(
+      { usuario: { id: req.usuario.id } },
+      process.env.SECRET_KEY,
+      { expiresIn: process.env.EXPIRES_IN })
+    res.status(200).json({
+      access_token: access_token
+    })
+  } catch (err) {
+    res.status(500).send({
+      errors: [
+        {
+          value: `${err.message}`,
+          msg: 'Erro ao gerar o token',
+          param: 'token'
+        }
+      ]
+    })
+  }
 })
-/*
-function setTokenCookie(res, token)
-{
-    // create http only cookie with refresh token that expires in 1 days
-    const cookieOptions = {
-        httpOnly: true,
-        expires: new Date(Date.now() + 24*60*60*1000)
-    }
-    res.cookie('refreshToken', token, cookieOptions);
-}
-*/
+
 export default router

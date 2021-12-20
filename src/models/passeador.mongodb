@@ -84,7 +84,7 @@ db.createCollection('passeadores', {
             }
         }
     },
-    validationLevel: 'strict', //strict-> aplica no insert e no update. moderate apenas no insert or off
+    validationLevel: 'off', //strict-> aplica no insert e no update. moderate apenas no insert or off
     validationAction: 'error' //error->rejeita o documento ou warn->registra no log mas permite a inclusão
 
 })

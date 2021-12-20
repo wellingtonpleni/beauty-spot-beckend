@@ -18,6 +18,8 @@ yarn add express-validator
 yarn add multer
 yarn add nodemon --dev
 yarn add node-fetch
+yarn add swagger-autogen --dev
+yarn add swagger-ui-express --dev
 ```
 
 ## Inspiration

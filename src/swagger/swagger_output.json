@@ -1,0 +1,657 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "🐕API DogWalker",
+    "description": "Documentação gerada automaticamente pelo módulo <strong>swagger-autogen</strong>."
+  },
+  "host": "http://localhost:4000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-KEY",
+      "description": "any description..."
+    }
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/usuarios/": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para obter todos os usuários do sistema.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Listagem dos usuários obtida com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Usuário"
+            }
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos usuários",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para adicionar um novo usuário.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id do Usuário",
+            "type": "string",
+            "required": true,
+            "example": "619d068ef455b2ded14c3af4"
+          },
+          {
+            "name": "filtro",
+            "in": "path",
+            "description": "Texto a ser filtrado",
+            "required": true,
+            "type": "string",
+            "example": "Gomes"
+          },
+          {
+            "name": "dadosUsuário",
+            "in": "body",
+            "description": "Informações do usuário.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DadosUsuário"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listagem dos usuários filtrados através do texto",
+            "schema": {
+              "$ref": "#/definitions/Usuário"
+            }
+          },
+          "201": {
+            "description": "Usuário registrado com sucesso!"
+          },
+          "202": {
+            "description": "Usuário alterado com sucesso!"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Erro ao tentar incluir o novo usuário",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          },
+          "404": {
+            "description": "Não Encontrado"
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos usuários filtrando pelo nome ou email",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      }
+    },
+    "/api/usuarios/id/{id}": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para obter o usuário através do id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do Usuário",
+            "example": "619d068ef455b2ded14c3af4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listagem do usuário obtido através do id",
+            "schema": {
+              "$ref": "#/definitions/Usuário"
+            }
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos usuários filtrando pelo id",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      }
+    },
+    "/api/usuarios/nome/{filtro}": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para obter o usuário através parte do seu nome ou e-mail",
+        "parameters": [
+          {
+            "name": "filtro",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Texto a ser filtrado",
+            "example": "Gomes"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listagem dos usuários filtrados através do texto",
+            "schema": {
+              "$ref": "#/definitions/Usuário"
+            }
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos usuários filtrando pelo nome ou email",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      }
+    },
+    "/api/usuarios/{id}": {
+      "put": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para alterar um usuário.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Id do Usuário",
+            "example": "619d068ef455b2ded14c3af4"
+          },
+          {
+            "name": "filtro",
+            "in": "path",
+            "description": "Texto a ser filtrado",
+            "required": true,
+            "type": "string",
+            "example": "Gomes"
+          },
+          {
+            "name": "dadosUsuário",
+            "in": "body",
+            "description": "Informações do usuário.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DadosUsuário"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listagem dos usuários filtrados através do texto",
+            "schema": {
+              "$ref": "#/definitions/Usuário"
+            }
+          },
+          "201": {
+            "description": "Usuário registrado com sucesso!"
+          },
+          "202": {
+            "description": "Usuário alterado com sucesso!"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "403": {
+            "description": "Erro ao tentar incluir o novo usuário",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          },
+          "404": {
+            "description": "Não Encontrado"
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos usuários filtrando pelo nome ou email",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para apagar um usuário pelo id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/api/usuarios/login": {
+      "post": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para validar o login do usuário e retornar o token JWT.",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "senha": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "404": {
+            "description": "Não Encontrado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/usuarios/token": {
+      "get": {
+        "tags": [
+          "Usuários"
+        ],
+        "description": "Endpoint para verificar se o token passado é válido",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/passeadores/": {
+      "get": {
+        "tags": [
+          "Passeadores"
+        ],
+        "description": "Endpoint que retorna os passeadores em um raio de 20Km da latitude e longitude informados",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Passeadores"
+        ],
+        "description": "Endpoint que inclui um novo passeador",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Criado"
+          },
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/passeadores/{id}": {
+      "get": {
+        "tags": [
+          "Passeadores"
+        ],
+        "description": "Endpoint que retorna os dados do passeador filtrando pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Passeadores"
+        ],
+        "description": "Endpoint que permite alterar os dados do passeador pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Criado"
+          },
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Passeadores"
+        ],
+        "description": "Endpoint que permite excluir um passeador filtrando pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/api/passeadores/nome/{nome}": {
+      "get": {
+        "tags": [
+          "Passeadores"
+        ],
+        "description": "Endpoint que retorna os dados do passeador filtrando por parte do nome",
+        "parameters": [
+          {
+            "name": "nome",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/mapquest/geo-reverse": {
+      "get": {
+        "tags": [
+          "MapQuest"
+        ],
+        "description": "Endpoint que retorna o endereço/localização a partir da latitude e longitude informados",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "lng",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/mapquest/geo": {
+      "get": {
+        "tags": [
+          "MapQuest"
+        ],
+        "description": "Endpoint que retorna a latitude e longitude a partir de um endereço/localização informado",
+        "parameters": [
+          {
+            "name": "localizacao",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Erro": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "example": "Erro gerado pela aplicação"
+        },
+        "msg": {
+          "type": "string",
+          "example": "Mensagem detalhando o erro"
+        },
+        "param": {
+          "type": "string",
+          "example": "URL que gerou o erro"
+        }
+      }
+    },
+    "Usuário": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": "Josefina Gusmão"
+        },
+        "email": {
+          "type": "string",
+          "example": "josefina@uol.com.br"
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": true
+        },
+        "tipo": {
+          "type": "string",
+          "example": "Cliente"
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=Josefina+Gusmão"
+        }
+      }
+    },
+    "DadosUsuário": {
+      "type": "object",
+      "properties": {
+        "nome": {
+          "type": "string",
+          "example": "Josefina Gusmão"
+        },
+        "email": {
+          "type": "string",
+          "example": "josefina@uol.com.br"
+        },
+        "senha": {
+          "type": "string",
+          "example": "SenhaSecreta"
+        },
+        "tipo": {
+          "type": "string",
+          "example": "Cliente"
+        },
+        "ativo": {
+          "type": "boolean",
+          "example": true
+        },
+        "avatar": {
+          "type": "string",
+          "example": "https://ui-avatars.com/api/?background=3700B3&color=FFFFFF&name=Dog+Walker"
+        }
+      },
+      "required": [
+        "nome",
+        "email",
+        "senha"
+      ]
+    }
+  }
+}
