@@ -5,18 +5,22 @@
     "title": "🐕API DogWalker",
     "description": "Documentação gerada automaticamente pelo módulo <strong>swagger-autogen</strong>."
   },
-  "host": "http://localhost:4000",
+  "host": [
+    "http://localhost:4000",
+    "https://backdogwalker.herokuapp.com"
+  ],
   "basePath": "/",
   "tags": [],
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "securityDefinitions": {
     "apiKeyAuth": {
       "type": "apiKey",
       "in": "header",
-      "name": "X-API-KEY",
-      "description": "any description..."
+      "name": "access-token",
+      "description": "Token de Acesso gerado após o login"
     }
   },
   "consumes": [
