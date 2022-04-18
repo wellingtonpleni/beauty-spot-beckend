@@ -524,7 +524,181 @@
         }
       }
     },
-    "/api/mapquest/geo-reverse": {
+    "/api/prestadores/": {
+      "get": {
+        "tags": [
+          "Prestadores"
+        ],
+        "description": "Endpoint para obter todos os Prestadores de Serviço do sistema.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Listagem dos prestadores de serviço obtida com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Prestadores"
+            }
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos prestadores",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Prestadores"
+        ],
+        "description": "Endpoint que inclui um novo prestador",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Listagem dos prestadores de serviço obtida com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Prestadores"
+            }
+          },
+          "201": {
+            "description": "Criado"
+          },
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos prestadores",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      }
+    },
+    "/api/prestadores/id/{id}": {
+      "get": {
+        "tags": [
+          "Prestadores"
+        ],
+        "description": "Endpoint que retorna os dados do prestador filtrando pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/prestadores/razao/{razao}": {
+      "get": {
+        "tags": [
+          "Prestadores"
+        ],
+        "description": "Endpoint que retorna os dados do prestador filtrando por parte da Razão Social",
+        "parameters": [
+          {
+            "name": "razao",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/prestadores/{id}": {
+      "put": {
+        "tags": [
+          "Prestadores"
+        ],
+        "description": "Endpoint que permite alterar os dados do prestador pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Listagem dos prestadores de serviço obtida com sucesso",
+            "schema": {
+              "$ref": "#/definitions/Prestadores"
+            }
+          },
+          "201": {
+            "description": "Criado"
+          },
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          },
+          "403": {
+            "description": "Acesso Negado"
+          },
+          "500": {
+            "description": "Erro ao obter a listagem dos prestadores",
+            "schema": {
+              "$ref": "#/definitions/Erro"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Prestadores"
+        ],
+        "description": "Endpoint que permite excluir um prestador filtrando pelo id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Aceito"
+          },
+          "400": {
+            "description": "Solicitação Inválida"
+          }
+        }
+      }
+    },
+    "/api/geo/geo-latlng": {
       "get": {
         "tags": [
           "MapQuest"
@@ -552,7 +726,7 @@
         }
       }
     },
-    "/api/mapquest/geo": {
+    "/api/geo/geo-endereco": {
       "get": {
         "tags": [
           "MapQuest"
@@ -562,6 +736,30 @@
           {
             "name": "localizacao",
             "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Erro Interno do Servidor"
+          }
+        }
+      }
+    },
+    "/api/geo/empresa": {
+      "get": {
+        "tags": [
+          "BrasilAPI"
+        ],
+        "description": "Endpoint que retorna os dados de uma empresa a partir do seu CNPJ",
+        "parameters": [
+          {
+            "name": "cnpj",
+            "in": "query",
+            "description": "CNPJ da empresa. (sem pontos ou traços)",
             "type": "string"
           }
         ],

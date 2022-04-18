@@ -1,5 +1,5 @@
 {
-  "name": "mongodbapi",
+  "name": "backendads",
   "version": "1.0.0",
   "description": "NodeJS API integrated with MongoDB (without Mongoose) ",
   "type": "module",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ricardoleme/mongodbApi.git"
+    "url": "git+https://github.com/ricardoleme/backendads.git"
   },
   "keywords": [
     "mongodb",
@@ -20,9 +20,9 @@
   "author": "Prof. Ricardo Leme",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ricardoleme/mongodbApi/issues"
+    "url": "https://github.com/ricardoleme/backendads/issues"
   },
-  "homepage": "https://github.com/ricardoleme/mongodbApi#readme",
+  "homepage": "https://github.com/ricardoleme/backendads#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
@@ -40,7 +40,7 @@
     "swagger-ui-express": "^4.3.0"
   },
   "engines": {
-    "node": "14.x",
-    "npm": "6.x"
+    "node": "16.x",
+    "npm": "8.x"
   }
 }
