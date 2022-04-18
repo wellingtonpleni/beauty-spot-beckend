@@ -6,11 +6,11 @@ const doc = {
     info: {
         version: "1.0.0",
         title: "🐕API DogWalker",
-        description: "Documentação gerada automaticamente pelo módulo <strong>swagger-autogen</strong>."
+        description: "➡️Documentação gerada automaticamente pelo módulo <a href='https://github.com/davibaltar/swagger-autogen' target='_blank'>swagger-autogen</a>."
     },
-    host: ['http://localhost:4000','https://backdogwalker.herokuapp.com'],
+    host: 'backdogwalker.herokuapp.com',
     basePath: "/",
-    schemes: ['http','https'],
+    schemes: ['https'],
     consumes: ['application/json'],
     produces: ['application/json'],
     securityDefinitions: {
@@ -33,6 +33,26 @@ const doc = {
             ativo: true,
             tipo: "Cliente",
             avatar: "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=Josefina+Gusmão"
+        },
+        Prestadores:{
+            cnpj: "33719377000156",
+            razao_social: "AIMEEVET SERVICOS VETERINARIOS EIRELI",
+            nome_fantasia: "",
+            ddd_telefone_1: "1176018050",
+            ddd_telefone_2: "",
+            cep: "04776150",
+            logradouro: "MARIO DE OLIVEIRA",
+            numero: "421",
+            municipio: "ITU",
+            bairro: "JARDIM PAULISTA II",
+            uf: "SP",
+            porte: "MICRO EMPRESA",
+            natureza_juridica: "Empresa Individual de Responsabilidade Limitada (de Natureza Empresária)",
+            cnae_fiscal: 7500100,
+            cnae_fiscal_descricao: "Atividades veterinárias",
+            data_inicio_atividade: "2019-05-24",
+            descricao_situacao_cadastral: "ATIVA",
+            localizacao:{type:"Point",coordinates:[-23.28861,-47.31145]}
         },
         DadosUsuário: {
             $nome: "Josefina Gusmão",

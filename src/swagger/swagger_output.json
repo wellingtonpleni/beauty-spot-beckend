@@ -3,16 +3,12 @@
   "info": {
     "version": "1.0.0",
     "title": "🐕API DogWalker",
-    "description": "Documentação gerada automaticamente pelo módulo <strong>swagger-autogen</strong>."
+    "description": "➡️Documentação gerada automaticamente pelo módulo <a href='https://github.com/davibaltar/swagger-autogen' target='_blank'>swagger-autogen</a>."
   },
-  "host": [
-    "http://localhost:4000",
-    "https://backdogwalker.herokuapp.com"
-  ],
+  "host": "backdogwalker.herokuapp.com",
   "basePath": "/",
   "tags": [],
   "schemes": [
-    "http",
     "https"
   ],
   "securityDefinitions": {
@@ -818,6 +814,98 @@
         "avatar": {
           "type": "string",
           "example": "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=Josefina+Gusmão"
+        }
+      }
+    },
+    "Prestadores": {
+      "type": "object",
+      "properties": {
+        "cnpj": {
+          "type": "string",
+          "example": "33719377000156"
+        },
+        "razao_social": {
+          "type": "string",
+          "example": "AIMEEVET SERVICOS VETERINARIOS EIRELI"
+        },
+        "nome_fantasia": {
+          "type": "string",
+          "example": ""
+        },
+        "ddd_telefone_1": {
+          "type": "string",
+          "example": "1176018050"
+        },
+        "ddd_telefone_2": {
+          "type": "string",
+          "example": ""
+        },
+        "cep": {
+          "type": "string",
+          "example": "04776150"
+        },
+        "logradouro": {
+          "type": "string",
+          "example": "MARIO DE OLIVEIRA"
+        },
+        "numero": {
+          "type": "string",
+          "example": "421"
+        },
+        "municipio": {
+          "type": "string",
+          "example": "ITU"
+        },
+        "bairro": {
+          "type": "string",
+          "example": "JARDIM PAULISTA II"
+        },
+        "uf": {
+          "type": "string",
+          "example": "SP"
+        },
+        "porte": {
+          "type": "string",
+          "example": "MICRO EMPRESA"
+        },
+        "natureza_juridica": {
+          "type": "string",
+          "example": "Empresa Individual de Responsabilidade Limitada (de Natureza Empresária)"
+        },
+        "cnae_fiscal": {
+          "type": "number",
+          "example": 7500100
+        },
+        "cnae_fiscal_descricao": {
+          "type": "string",
+          "example": "Atividades veterinárias"
+        },
+        "data_inicio_atividade": {
+          "type": "string",
+          "example": "2019-05-24"
+        },
+        "descricao_situacao_cadastral": {
+          "type": "string",
+          "example": "ATIVA"
+        },
+        "localizacao": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "example": "Point"
+            },
+            "coordinates": {
+              "type": "array",
+              "example": [
+                -23.28861,
+                -47.31145
+              ],
+              "items": {
+                "type": "number"
+              }
+            }
+          }
         }
       }
     },
