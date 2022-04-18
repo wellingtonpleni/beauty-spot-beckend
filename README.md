@@ -19,8 +19,8 @@ yarn add multer
 yarn add nodemon --dev
 yarn add node-fetch
 yarn add swagger-autogen --dev
-yarn add swagger-ui-express --dev
+yarn add swagger-ui-express 
 ```
 
-## Inspiration
-https://github.com/mav1283/mernstacktodo/blob/master/server.js
+## Demo
+https://backdogwalker.herokuapp.com
