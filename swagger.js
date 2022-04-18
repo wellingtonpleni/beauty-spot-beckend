@@ -8,17 +8,17 @@ const doc = {
         title: "🐕API DogWalker",
         description: "Documentação gerada automaticamente pelo módulo <strong>swagger-autogen</strong>."
     },
-    host: "http://localhost:4000",
+    host: ['http://localhost:4000','https://backdogwalker.herokuapp.com'],
     basePath: "/",
-    schemes: ['http'],
+    schemes: ['http','https'],
     consumes: ['application/json'],
     produces: ['application/json'],
     securityDefinitions: {
         apiKeyAuth:{
             type: "apiKey",
             in: "header",       // can be "header", "query" or "cookie"
-            name: "X-API-KEY",  // name of the header, query parameter or cookie
-            description: "any description..."
+            name: "access-token",  // name of the header, query parameter or cookie
+            description: "Token de Acesso gerado após o login"
         }
     },
     definitions: {

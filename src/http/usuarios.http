@@ -1,5 +1,5 @@
 //Teste de Requisições REST - Usuários
-//@baseURL = https://dogwalkerfatec.herokuapp.com/api
+//@baseURL = https://backdogwalker.herokuapp.com/api
 @baseURL = http://localhost:4000/api
 @id = 619d068ef455b2ded14c3af4
 ###

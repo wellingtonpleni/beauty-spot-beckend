@@ -1,5 +1,5 @@
 //Teste de Requisições REST - Prestadores
-//@baseURL = https://dogwalkerfatec.herokuapp.com/api
+//@baseURL = https://backdogwalker.herokuapp.com/api
 @baseURL = http://localhost:4000/api
 @id = 625d5c8d955b2f3e571ea2ae
 @razao = capura
