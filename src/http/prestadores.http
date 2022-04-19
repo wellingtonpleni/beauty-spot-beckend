@@ -24,8 +24,8 @@ POST {{baseURL}}/prestadores
 Content-Type: application/json
 
 {
-   "cnpj": "33719377000157",
-   "razao_social": "AIMEEVET SERVICOS VETERINARIOS S/A.",
+   "cnpj": "33719377000158",
+   "razao_social": "AIMEEVET SERVICOS VETERINÁRIOS S/A.",
    "nome_fantasia": "",
    "ddd_telefone_1": "1176018050",
    "ddd_telefone_2": "",
