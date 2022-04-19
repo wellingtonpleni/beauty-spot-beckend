@@ -24,8 +24,8 @@ POST {{baseURL}}/prestadores
 Content-Type: application/json
 
 {
-   "cnpj": "33719377000158",
-   "razao_social": "AIMEEVET SERVICOS VETERINARIOS EIRELI",
+   "cnpj": "33719377000157",
+   "razao_social": "AIMEEVET SERVICOS VETERINARIOS S/A.",
    "nome_fantasia": "",
    "ddd_telefone_1": "1176018050",
    "ddd_telefone_2": "",
@@ -41,7 +41,7 @@ Content-Type: application/json
    "cnae_fiscal_descricao": "Atividades veterinárias",
    "data_inicio_atividade": "2019-04-30",
    "descricao_situacao_cadastral": "ATIVA",
-   "localizacao":{"type":"Point","coordinates":[-23.28861,-47.31145]}
+   "localizacao":{"type":"Point","coordinates":[23.28861,47.31145]}
 }
 
 ### 
