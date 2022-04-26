@@ -19,6 +19,7 @@ db.createCollection('prestadores', {
                 ddd_telefone_1: {bsonType: 'string'},
                 ddd_telefone_2: {bsonType: 'string'},
                 cep: {bsonType: 'string'},
+                descricao_tipo_de_logradouro: {bsonType: 'string'},
                 logradouro: {bsonType: 'string'},
                 numero: {bsonType: 'string'},
                 municipio: {bsonType: 'string'},
@@ -52,6 +53,7 @@ db.prestadores.insertOne({
 "ddd_telefone_1": "1159398145",
 "ddd_telefone_2": "",
 "cep": "04776150",
+"descricao_tipo_de_logradouro": "RUA",
 "logradouro": "DO PORTO",
 "numero": "59",
 "municipio": "SAO PAULO",
@@ -72,15 +74,6 @@ db.prestadores.insertOne({
 //O raio equatorial da Terra é de aproximadamente 3963,2 milhas ou 6378,1 quilômetros. 
 db.prestadores.find( { localizacao: { $geoWithin: { $centerSphere: [ [ -23.265700, -47.299120 ] ,
                                                      10 / 6378.1 ] } } } )
-
-//Retornando a nota média a partir dos testemunhos ordenado pela maior nota
-db.prestadores.aggregate([
-  { $match : { nome : /a/i } },
-  { $unwind : '$testemunhos' },
-  { $group : { _id : '$nome', notaMedia : { $avg : '$testemunhos.estrelas' } } },
-  { $sort : { notaMedia : -1 } }
-]).pretty()
-
 //Lista todos os registros próximos em um raio de até 50km, calculando a distância em Km
 db.prestadores.aggregate([{
    $geoNear:{
