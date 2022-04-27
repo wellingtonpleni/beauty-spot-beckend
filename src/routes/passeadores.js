@@ -116,10 +116,10 @@ router.post('/', validaPasseador, async (req, res) => {
 })
 
 /**********************************************
- * PUT /passeadores/:id
+ * PUT /passeadores
  * Alterar um passeador pelo ID
  **********************************************/
-router.put('/:id', validaPasseador, async (req, res) => {
+router.put('/', validaPasseador, async (req, res) => {
     /* #swagger.tags = ['Passeadores']
       #swagger.description = 'Endpoint que permite alterar os dados do passeador pelo id' 
       */
@@ -130,7 +130,7 @@ router.put('/:id', validaPasseador, async (req, res) => {
         }))
     } else {
         await db.collection(nomeCollection)
-            .updateOne({ '_id': { $eq: ObjectId(req.params.id) } },
+            .updateOne({ '_id': { $eq: ObjectId(req.body._id) } },
                 { $set: req.body }
             )
             .then(result => res.status(202).send(result))

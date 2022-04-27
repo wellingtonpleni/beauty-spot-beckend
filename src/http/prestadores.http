@@ -1,6 +1,6 @@
 //Teste de Requisições REST - Prestadores
-@baseURL = https://backdogwalker.herokuapp.com/api
-//@baseURL = http://localhost:4000/api
+//@baseURL = https://backdogwalker.herokuapp.com/api
+@baseURL = http://localhost:4000/api
 @id = 6267f34532ae23b306a82e20
 @razao = capura
 ###
@@ -52,10 +52,11 @@ Content-Type: application/json
 
 ###
 // PUT - Altera um prestador pelo ID
-PUT {{baseURL}}/prestadores/{{id}}
+PUT {{baseURL}}/prestadores
 Content-Type: application/json
 
 {
+   "_id": "6267f34532ae23b306a82e20",
    "cnpj": "33719377000156",
    "razao_social": "AIMEEVET SERVICOS VETERINARIOS EIRELI",
    "nome_fantasia": "",

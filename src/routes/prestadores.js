@@ -19,7 +19,7 @@ const validaPrestador = [
     .custom((value, { req }) => {
       return db.collection(nomeCollection).find({ cnpj: { $eq: value } }).toArray()
         .then((cnpj) => {
-          if (cnpj.length && !req.params.id) {
+          if (cnpj.length && !req.body._id) {
             return Promise.reject(`O cnpj ${value} já está informado em outro Prestador`)
           }
         })
@@ -141,10 +141,12 @@ router.post('/', validaPrestador, async (req, res) => {
 })
 
 /**********************************************
- * PUT /prestadores/:id
+ * PUT /prestadores
  * Alterar um prestador pelo ID
  **********************************************/
-router.put('/:id', validaPrestador, async (req, res) => {
+router.put('/', validaPrestador, async (req, res) => {
+  let idDocumento = req.body._id
+  delete req.body._id //removendo o ID do body para o update não apresentar o erro 66
     /* #swagger.tags = ['Prestadores']
       #swagger.description = 'Endpoint que permite alterar os dados do prestador pelo id' 
       */
@@ -155,7 +157,7 @@ router.put('/:id', validaPrestador, async (req, res) => {
         }))
     } else {
         await db.collection(nomeCollection)
-            .updateOne({ '_id': { $eq: ObjectId(req.params.id) } },
+            .updateOne({ '_id': { $eq: ObjectId(idDocumento) } },
                 { $set: req.body }
             )
             .then(result => res.status(202).send(result))
