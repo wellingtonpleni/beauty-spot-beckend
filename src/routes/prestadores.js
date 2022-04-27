@@ -26,7 +26,7 @@ const validaPrestador = [
     }),
     check('razao_social')
         .not().isEmpty().trim().withMessage('É obrigatório informar a Razão Social')
-        .isAlpha('pt-BR', { ignore: '/. ' }).withMessage('A Razão Social deve conter apenas texto')
+        .isAlphanumeric('pt-BR', { ignore: '/. ' }).withMessage('A Razão Social deve conter apenas caracteres alfanuméricos')
         .isLength({ min: 3 }).withMessage('A Razão Social é muito curta. Informe ao menos 3 caracteres')
         .isLength({ max: 100 }).withMessage('A Razão Social é muito longa. Informe no máximo 100 caracteres'),
     check('cnae_fiscal', 'O código do CNAE (Classificação Nacional de Atividades Econômicas) deve ser um número').isNumeric(),
