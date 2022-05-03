@@ -7,7 +7,7 @@ import * as path from 'path'
 //Configurações do Multer (Pasta padrão e como será gravado o nome do arquivo)
 const multerStorage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, "public");
+        callback(null, "./public");
     },
     filename: (req, file, callback) => {
         const ext = file.mimetype.split("/")[1];
