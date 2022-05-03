@@ -3,6 +3,7 @@ import fs from 'fs'
 import cors from 'cors'
 import rotasUsuarios from './routes/usuarios.js'
 import rotasGeo from './routes/geo.js'
+import rotaUpload from './routes/upload.js'
 import rotasPasseadores from './routes/passeadores.js'
 import rotasPrestadores from './routes/prestadores.js'
 
@@ -38,7 +39,7 @@ app.use('/api/prestadores', rotasPrestadores)
 app.use('/api/geo', rotasGeo)
 
 /* Rota do upload */
-//app.use('/upload', rotaUpload)
+app.use('/upload', rotaUpload)
 
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(JSON.parse(fs.readFileSync('./src/swagger/swagger_output.json'))))
 
