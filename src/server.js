@@ -4,8 +4,7 @@ import cors from 'cors'
 import rotasUsuarios from './routes/usuarios.js'
 import rotasGeo from './routes/geo.js'
 import rotaUpload from './routes/upload.js'
-import rotasPasseadores from './routes/passeadores.js'
-import rotasPrestadores from './routes/prestadores.js'
+import rotasPasseadores from './routes/profissionais.js'
 
 const app = express();
 const port = process.env.PORT || 4000
@@ -33,8 +32,7 @@ app.get('/api', (req, res) => {
 
 //Rotas 
 app.use('/api/usuarios', rotasUsuarios)
-app.use('/api/passeadores', rotasPasseadores)
-app.use('/api/prestadores', rotasPrestadores)
+app.use('/api/profissionais', rotasPasseadores)
 
 app.use('/api/geo', rotasGeo)
 

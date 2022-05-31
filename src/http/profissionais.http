@@ -1,0 +1,62 @@
+//Teste de Requisições REST - Prestadores
+//@baseURL = https://backdogwalker.herokuapp.com/api
+@baseURL = http://localhost:4000/api
+@id = 62962dd12e4a6ef5f039e2c4
+@razao = capura
+###
+// GET - Lista todos os profissionais
+GET {{baseURL}}/profissionais
+Content-Type: application/json
+
+###
+// GET - Lista apenas um profissional pelo id
+GET {{baseURL}}/profissionais/id/{{id}}
+Content-Type: application/json
+
+###
+// POST - Inclui um novo profissional
+POST {{baseURL}}/profissionais
+Content-Type: application/json
+
+{
+   "nome": "Carolina Diaz",
+   "email": "carol@beauty.com.br",
+   "celular": "",
+   "servico": "Manicuri",
+   "ativo": "",
+   "cep": "04776150",
+   //"descricao_tipo_de_logradouro": "AV",
+   //"logradouro": "MARIO DE OLIVEIRA",
+   //"numero": "421",
+   //"municipio": "ITU",
+   //"bairro": "JARDIM PAULISTA II",
+   //"uf": "SP",
+   "localizacao":{"type":"Point","coordinates":[23.28861,47.31145]}
+}
+
+### 
+// DELETE - Apaga um profissional através do id informado
+DELETE {{baseURL}}/profissionais/{{id}}
+Content-Type: application/json
+
+###
+// PUT - Altera um profissional pelo ID
+PUT {{baseURL}}/profissionais
+Content-Type: application/json
+
+{
+   "_id": "6267f34532ae23b306a82e20",
+    "nome": "Carolina Santos",
+   "email": "carol@beauty.com.br",
+   "celular": "",
+   "servico": "Cabeleireira",
+   "ativo": "",
+   "cep": "04776150",
+   //"descricao_tipo_de_logradouro": "AV",
+   //"logradouro": "MARIO DE OLIVEIRA",
+   //"numero": "421",
+   //"municipio": "ITU",
+   //"bairro": "JARDIM PAULISTA II",
+   //"uf": "SP",
+   "localizacao":{"type":"Point","coordinates":[-23.28861,-47.31145]}
+}

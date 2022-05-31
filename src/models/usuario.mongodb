@@ -1,5 +1,5 @@
 //Selecione o database
-use('dogWalker')
+use('beautyspot')
 
 // Remove a collection
 db.usuarios.drop()
@@ -82,4 +82,4 @@ db.usuarios.find({
        {nome: { $regex: 'alguém', $options: "i" } },
        {email: { $regex: 'uol', $options: "i" } }
       ]
-      })
+})
