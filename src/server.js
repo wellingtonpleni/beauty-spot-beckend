@@ -4,7 +4,7 @@ import cors from 'cors'
 import rotasUsuarios from './routes/usuarios.js'
 import rotasGeo from './routes/geo.js'
 import rotaUpload from './routes/upload.js'
-import rotasPasseadores from './routes/profissionais.js'
+import rotaProfissionais from './routes/profissionais.js'
 
 const app = express();
 const port = process.env.PORT || 4000
@@ -24,7 +24,7 @@ app.use('/', express.static('public'))
 // Definimos a nossa rota default
 app.get('/api', (req, res) => {
   res.status(200).json({
-    message: 'API Dog Walker - 100% funcional!🐕👏',
+    message: 'API Beauty Spot - 100% funcional!🐕👏',
     version: '1.0.1'
   })
 
@@ -32,7 +32,7 @@ app.get('/api', (req, res) => {
 
 //Rotas 
 app.use('/api/usuarios', rotasUsuarios)
-app.use('/api/profissionais', rotasPasseadores)
+app.use('/api/profissionais', rotaProfissionais)
 
 app.use('/api/geo', rotasGeo)
 
