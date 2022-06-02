@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "🐕API DogWalker",
+    "title": "API Beauty Spot",
     "description": "➡️Documentação gerada automaticamente pelo módulo <a href='https://github.com/davibaltar/swagger-autogen' target='_blank'>swagger-autogen</a>."
   },
-  "host": "backdogwalker.herokuapp.com",
+  "host": "beautyspotbr.herokuapp.com",
   "basePath": "/",
   "tags": [],
   "schemes": [
