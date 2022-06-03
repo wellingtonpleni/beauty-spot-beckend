@@ -85,7 +85,7 @@ router.get("/nome/:nome", async (req, res) => {
       #swagger.description = 'Endpoint que retorna os dados do profissional filtrando por parte do nome' 
       */
     try {
-        db.collection(nomeCollection).find({ nome: { $regex: req.params.nome, $options: "i" },notaMedia : { $avg : '$testemunhos.estrelas' } }).toArray((err, docs) => {
+        db.collection(nomeCollection).find({ nome: { $regex: req.params.nome, $options: "i" } }).toArray((err, docs) => {
             if (err) {
                 res.status(400).json(err) //bad request
             } else {
