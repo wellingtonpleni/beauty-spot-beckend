@@ -48,8 +48,8 @@ router.get("/", async (req, res) => {
                     _id: {
                         email: '$email',
                         nome: '$nome',
-                        celular: '$celular'
                     },
+                    nome: {nome: '$nome'},
                     notaMedia: { $avg: '$testemunhos.estrelas' }
                 }
             },
