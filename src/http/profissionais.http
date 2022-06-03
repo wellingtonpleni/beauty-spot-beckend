@@ -1,6 +1,6 @@
 //Teste de Requisições REST - Prestadores
-//@baseURL = https://backdogwalker.herokuapp.com/api
-@baseURL = http://localhost:4000/api
+@baseURL = https://beautyspotbr.herokuapp.com/api
+//@baseURL = http://localhost:4000/api
 @id = 62962dd12e4a6ef5f039e2c4
 @razao = capura
 ###
@@ -31,7 +31,7 @@ Content-Type: application/json
    //"municipio": "ITU",
    //"bairro": "JARDIM PAULISTA II",
    //"uf": "SP",
-   "localizacao":{"type":"Point","coordinates":[23.28861,47.31145]}
+   //"localizacao":{"type":"Point","coordinates":[23.28861,47.31145]}
 }
 
 ### 
