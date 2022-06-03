@@ -22,28 +22,43 @@ const validaProfissional = [
  * Lista todos os profissionais
  **********************************************/
 router.get("/", async (req, res) => {
-        /* #swagger.tags = ['Profissionais']
-      #swagger.description = 'Endpoint que retorna os profissionais em um raio de 20Km da latitude e longitude informados' 
-      */
+    /* #swagger.tags = ['Profissionais']
+  #swagger.description = 'Endpoint que retorna os profissionais em um raio de 20Km da latitude e longitude informados' 
+  */
     const lat = parseFloat(req.query.lat) || -23.265700
     const lng = parseFloat(req.query.lng) || -47.299120 //centro de Itu,SP
     try {
         db.collection(nomeCollection).aggregate([
-            { $geoNear:{
-            near:{
-               type:"Point",
-               coordinates:[lat,lng]},
-               distanceField: "distancia",
-               maxDistance: (20 * 1609.34), // milhas para metros - Máximo 20km
-               distanceMultiplier: 0.000621371, // metros para milhas
-               spherical: true
-               }},
-        { $match : { nome : /a/i } },
-        { $unwind : '$testemunhos' },
-        { $group : { _id : {email: '$email', distancia: '$distancia'}, notaMedia : { $avg : '$testemunhos.estrelas' } } },
-        { $lookup: {from: "passeadores", localField: "_id.email", foreignField: "email", as: "detalhes"}},
-        { $sort : { notaMedia : -1 } }
-      ]).toArray((err, docs) => {
+            {
+                $geoNear: {
+                    near: {
+                        type: "Point",
+                        coordinates: [lat, lng]
+                    },
+                    distanceField: "distancia",
+                    maxDistance: (20 * 1609.34), // milhas para metros - Máximo 20km
+                    distanceMultiplier: 0.000621371, // metros para milhas
+                    spherical: true
+                }
+            },
+            { $match: { nome: /a/i } },
+            { $unwind: '$testemunhos' },
+            {
+                $group: {
+                    _id: {
+                        email: '$email',
+                        nome: '$nome',
+                        celular: '$celular',
+                        servico: '$servico',
+                        avatar: '$avatar'
+                    },
+                    notaMedia: { $avg: '$testemunhos.estrelas' },
+                    servicos: { descricao: '$descricao', preco: '$preco'},
+                }
+            },
+            { $lookup: { from: "profissionais", localField: "_id.email", foreignField: "email", as: "detalhes" } },
+            { $sort: { notaMedia: -1 } }
+        ]).toArray((err, docs) => {
             if (err) {
                 res.status(400).json(err) //bad request
             } else {
@@ -59,9 +74,9 @@ router.get("/", async (req, res) => {
  * GET /profissionais/:id
  **********************************************/
 router.get("/:id", async (req, res) => {
-      /* #swagger.tags = ['Profissionais']
-      #swagger.description = 'Endpoint que retorna os dados do profissional filtrando pelo id' 
-      */
+    /* #swagger.tags = ['Profissionais']
+    #swagger.description = 'Endpoint que retorna os dados do profissional filtrando pelo id' 
+    */
     try {
         db.collection(nomeCollection).find({ "_id": { $eq: ObjectId(req.params.id) } }).toArray((err, docs) => {
             if (err) {
