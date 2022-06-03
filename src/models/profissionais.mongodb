@@ -244,8 +244,8 @@ db.profissionais.aggregate([
   { $match : { nome : /a/i } },
   { $unwind : '$testemunhos' },
   { $group : { _id : {email: '$email'}, 
-                notaMedia : { $avg : '$testemunhos.estrelas', 
-                nome: { '$nome' } } } },
+                notaMedia : { $avg : '$testemunhos.estrelas'}, 
+                nome: { '$nome' } } },
   { $lookup: {from: "profissionais", localField: "_id.email", foreignField: "email", as: "detalhes"}},
   { $sort : { "_id.distancia":1, notaMedia : -1 } }
 ])
