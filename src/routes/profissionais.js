@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
     const lng = parseFloat(req.query.lng) || -47.299120 //centro de Itu,SP
     try {
         db.collection(nomeCollection).aggregate([
-            {
+            /*{
                 $geoNear: {
                     near: {
                         type: "Point",
@@ -40,7 +40,7 @@ router.get("/", async (req, res) => {
                     distanceMultiplier: 0.000621371, // metros para milhas
                     spherical: true
                 }
-            },
+            },*/
             { $match: { nome: /a/i } },
             { $unwind: '$testemunhos' },
             {
