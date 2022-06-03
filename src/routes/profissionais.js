@@ -49,7 +49,6 @@ router.get("/", async (req, res) => {
                         email: '$email',
                         nome: '$nome',
                     },
-                    nome: {nome: '$nome'},
                     notaMedia: { $avg: '$testemunhos.estrelas' }
                 }
             },
