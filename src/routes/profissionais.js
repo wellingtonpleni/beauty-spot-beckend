@@ -23,7 +23,7 @@ const validaProfissional = [
  **********************************************/
  router.get('/', async (req, res) => {
     /* 
-     #swagger.tags = ['Prestadores']
+     #swagger.tags = ['Profissionais']
      #swagger.description = 'Endpoint para obter todos os Profissionais de Serviço do sistema.' 
      */
     try {
@@ -33,7 +33,7 @@ const validaProfissional = [
         if (!err) {
           /* 
           #swagger.responses[200] = { 
-       schema: { "$ref": "#/definitions/Prestadores" },
+       schema: { "$ref": "#/definitions/Profissionais" },
        description: "Listagem dos profissionais de serviço obtida com sucesso" } 
        */
           res.status(200).json(docs)
