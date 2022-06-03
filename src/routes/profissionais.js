@@ -13,6 +13,7 @@ const { db, ObjectId } = await connectToDatabase()
  **********************************************/
 const validaProfissional = [
     check('nome', 'Nome do Profissional é obrigatório').not().isEmpty(),
+    check('servico', 'Serviço do Profissional é obrigatório').not().isEmpty(),
     check('celular', 'O celular deve ser um número').isNumeric()
 ]
 
