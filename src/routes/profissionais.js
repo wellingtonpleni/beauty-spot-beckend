@@ -18,53 +18,44 @@ const validaProfissional = [
 
 
 /**********************************************
- * GET /profissionais/
+ * GET /profissionais
  * Lista todos os profissionais
  **********************************************/
-router.get("/", async (req, res) => {
-    /* #swagger.tags = ['Profissionais']
-  #swagger.description = 'Endpoint que retorna os profissionais em um raio de 20Km da latitude e longitude informados' 
-  */
-    const lat = parseFloat(req.query.lat) || -23.265700
-    const lng = parseFloat(req.query.lng) || -47.299120 //centro de Itu,SP
+ router.get('/', async (req, res) => {
+    /* 
+     #swagger.tags = ['Prestadores']
+     #swagger.description = 'Endpoint para obter todos os Profissionais de Serviço do sistema.' 
+     */
     try {
-        db.collection(nomeCollection).aggregate([
-            {
-                $geoNear: {
-                    near: {
-                        type: "Point",
-                        coordinates: [lat, lng]
-                    },
-                    distanceField: "distancia",
-                    maxDistance: (20 * 1609.34), // milhas para metros - Máximo 20km
-                    distanceMultiplier: 0.000621371, // metros para milhas
-                    spherical: true
-                }
-            },
-            { $match: { nome: /a/i } },
-            { $unwind: '$testemunhos' },
-            {
-                $group: {
-                    _id: {
-                        email: '$email',
-                        nome: '$nome',
-                    },
-                    notaMedia: { $avg: '$testemunhos.estrelas' }
-                }
-            },
-            { $lookup: { from: "profissionais", localField: "_id.email", foreignField: "email", as: "detalhes" } },
-            { $sort: { notaMedia: -1 } }
-        ]).toArray((err, docs) => {
-            if (err) {
-                res.status(400).json(err) //bad request
-            } else {
-                res.status(200).json(docs) //retorna os documentos
-            }
-        })
+      db.collection(nomeCollection).find({}, {
+        projection: { senha: false }
+      }).sort({ nome: 1 }).toArray((err, docs) => {
+        if (!err) {
+          /* 
+          #swagger.responses[200] = { 
+       schema: { "$ref": "#/definitions/Prestadores" },
+       description: "Listagem dos profissionais de serviço obtida com sucesso" } 
+       */
+          res.status(200).json(docs)
+        }
+      })
     } catch (err) {
-        res.status(500).json({ "error": err.message })
+      /* 
+         #swagger.responses[500] = { 
+      schema: { "$ref": "#/definitions/Erro" },
+      description: "Erro ao obter a listagem dos profissionais" } 
+      */
+      res.status(500).json({
+        errors: [
+          {
+            value: `${err.message}`,
+            msg: 'Erro ao obter a listagem dos profissionais',
+            param: '/'
+          }
+        ]
+      })
     }
-})
+  })
 
 /**********************************************
  * GET /profissionais/:id
