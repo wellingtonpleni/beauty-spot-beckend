@@ -1,3 +1,9 @@
+#beauty-spot
+
+Participantes: THIAGO HENRIQUE ALVES BARROS & WELLINGTON BARBOZA RUFINO
+
+
+
 # NodeJS API integrated with MongoDB (without Mongoose) 
 
 You´re using import/export in this project.
@@ -21,6 +27,3 @@ yarn add node-fetch
 yarn add swagger-autogen --dev
 yarn add swagger-ui-express 
 ```
-
-## Demo
-https://backdogwalker.herokuapp.com
